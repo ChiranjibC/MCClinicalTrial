@@ -194,6 +194,7 @@ namespace MultiChainLib
                 commentTo, startBlock, endBlock);*/
         }
 
+        #region Stream Commands
         public JsonRpcResponse<string> PublishStream(string streamName, string key, string hexValue)
         {
             return this.Execute<string>("publish", 0, streamName, key, hexValue);
@@ -202,6 +203,54 @@ namespace MultiChainLib
         {
             return this.ExecuteAsync<string>("publish", 0, streamName, key, hexValue);
         }
+
+        public JsonRpcResponse<string> ListStreamPublishers(string streamName)
+        {
+            return this.Execute<string>("liststreampublishers", 0, streamName);
+        }
+        public Task<JsonRpcResponse<string>> ListStreamPublishersAsync(string streamName)
+        {
+            return this.ExecuteAsync<string>("liststreampublishers", 0, streamName);
+        }
+
+        public JsonRpcResponse<string> ListStreamPublisherItems(string streamName, string publishingAddress)
+        {
+            return this.Execute<string>("liststreampublisheritems", 0, streamName, publishingAddress);
+        }
+        public Task<JsonRpcResponse<string>> ListStreamPublisherItemsAsync(string streamName, string publishingAddress)
+        {
+            return this.ExecuteAsync<string>("liststreampublisheritems", 0, streamName, publishingAddress);
+        }
+
+        public JsonRpcResponse<string> ListStreamItems(string streamName)
+        {
+            return this.Execute<string>("liststreamitems", 0, streamName);
+        }
+        public Task<JsonRpcResponse<string>> ListStreamItemsAsync(string streamName)
+        {
+            return this.ExecuteAsync<string>("liststreamitems", 0, streamName);
+        }
+
+        public JsonRpcResponse<string> ListStreamKeys(string streamName)
+        {
+            return this.Execute<string>("liststreamkeys", 0, streamName);
+        }
+        public Task<JsonRpcResponse<string>> ListStreamKeysAsync(string streamName)
+        {
+            return this.ExecuteAsync<string>("liststreamkeys", 0, streamName);
+        }
+
+        public JsonRpcResponse<string> ListStreamKeyItems(string streamName, string key)
+        {
+            return this.Execute<string>("liststreamkeyitems", 0, streamName, key);
+        }
+        public Task<JsonRpcResponse<string>> PublishStreamAsync(string streamName, string key)
+        {
+            return this.ExecuteAsync<string>("liststreamkeyitems", 0, streamName, key);
+        }
+
+        #endregion
+
         public Task<JsonRpcResponse<List<AssetResponse>>> ListAssetsAsync()
         {
             return this.ExecuteAsync<List<AssetResponse>>("listassets", 0);
