@@ -39,15 +39,16 @@ namespace MCClinicalTrialDemo.Controllers
             TrialModel trialModel = new TrialModel();
             try
             {
-                MultiChainClient mcClient = new MultiChainClient("52.207.254.96", 2766, false, "multichainrpc", "testmultichain", "TrialRepository");
+                MultiChainClient mcClient = new MultiChainClient("54.234.132.18", 2766, false, "multichainrpc", "testmultichain", "TrialRepository");
                 
                 
                 //populate trial-model by trial-view-model
                 trialModel = GetTrialModel(collection);
 
                 //Keep following line commented till the time GetTrialModel implemented.
+                var info = mcClient.ListStreamItems("TrialStream");
                 //var info = mcClient.PublishStream("TrialStream", trialModel.TrialKey, trialModel.TrialData);
-                //info.AssertOk();
+                info.AssertOk();
                 
 
                 return RedirectToAction("Index", "Home");

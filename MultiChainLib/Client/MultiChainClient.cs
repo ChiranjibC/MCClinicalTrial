@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MultiChainLib.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -222,13 +223,13 @@ namespace MultiChainLib
             return this.ExecuteAsync<string>("liststreampublisheritems", 0, streamName, publishingAddress);
         }
 
-        public JsonRpcResponse<string> ListStreamItems(string streamName)
+        public JsonRpcResponse<List<StreamResponse>> ListStreamItems(string streamName)
         {
-            return this.Execute<string>("liststreamitems", 0, streamName);
+            return this.Execute<List<StreamResponse>>("liststreamitems", 0, streamName);
         }
-        public Task<JsonRpcResponse<string>> ListStreamItemsAsync(string streamName)
+        public Task<JsonRpcResponse<List<StreamResponse>>> ListStreamItemsAsync(string streamName)
         {
-            return this.ExecuteAsync<string>("liststreamitems", 0, streamName);
+            return this.ExecuteAsync<List<StreamResponse>>("liststreamitems", 0, streamName);
         }
 
         public JsonRpcResponse<string> ListStreamKeys(string streamName)
@@ -737,7 +738,10 @@ namespace MultiChainLib
                 JsonRpcResponse<T> theResult = null;
                 try
                 {
-                    theResult = JsonConvert.DeserializeObject<JsonRpcResponse<T>>(jsonIn);
+                    JsonSerializerSettings settings = new JsonSerializerSettings();
+                    settings.ObjectCreationHandling = ObjectCreationHandling.Replace;
+
+                    theResult = JsonConvert.DeserializeObject<JsonRpcResponse<T>>(jsonIn, settings);
                 }
                 catch (Exception jsonEx)
                 {
