@@ -9,12 +9,6 @@ namespace MultiChainLib.Model
 {
     public class StreamResponse
     {
-        [JsonProperty("result")]
-        public List<Stream> Result { get; set; }
-    }
-
-    public class Stream
-    {
         [JsonProperty("publishers")]
         public List<string> Publishers { get; set; }
 

@@ -738,10 +738,7 @@ namespace MultiChainLib
                 JsonRpcResponse<T> theResult = null;
                 try
                 {
-                    JsonSerializerSettings settings = new JsonSerializerSettings();
-                    settings.ObjectCreationHandling = ObjectCreationHandling.Replace;
-
-                    theResult = JsonConvert.DeserializeObject<JsonRpcResponse<T>>(jsonIn, settings);
+                    theResult = JsonConvert.DeserializeObject<JsonRpcResponse<T>>(jsonIn);
                 }
                 catch (Exception jsonEx)
                 {
