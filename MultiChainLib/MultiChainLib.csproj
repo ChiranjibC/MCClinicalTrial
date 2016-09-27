@@ -52,6 +52,7 @@
     <Compile Include="Client\JsonRpcResponse.cs" />
     <Compile Include="Client\JsonRpcRequest.cs" />
     <Compile Include="Client\MultiChainClient.cs" />
+    <Compile Include="Helper\Utility.cs" />
     <Compile Include="Model\AddressGroupingResponse.cs" />
     <Compile Include="Model\AddressResponse.cs" />
     <Compile Include="Model\AssetBalanceResponse.cs" />

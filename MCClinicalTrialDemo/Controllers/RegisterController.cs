@@ -1,5 +1,7 @@
 ﻿using MCClinicalTrialDemo.Models;
 using MultiChainLib;
+using MultiChainLib.Helper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,40 +36,46 @@ namespace MCClinicalTrialDemo.Controllers
         //
         // POST: /Register/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(TrialViewModel trialViewModel)
         {
             TrialModel trialModel = new TrialModel();
             try
             {
                 MultiChainClient mcClient = new MultiChainClient("54.234.132.18", 2766, false, "multichainrpc", "testmultichain", "TrialRepository");
-                
-                
+                //MultiChainClient mcClient = new MultiChainClient("52.207.254.96", 2766, false, "multichainrpc", "testmultichain", "TrialRepository");
+
+
                 //populate trial-model by trial-view-model
-                trialModel = GetTrialModel(collection);
+                trialModel = GetTrialModel(trialViewModel);
 
                 //Keep following line commented till the time GetTrialModel implemented.
-                var info = mcClient.ListStreamItems("TrialStream");
-                //var info = mcClient.PublishStream("TrialStream", trialModel.TrialKey, trialModel.TrialData);
+                //var info = mcClient.ListStreamItems("TrialStream");
+                var info = mcClient.PublishStream("TrialStream", trialModel.TrialKey, trialModel.TrialData);
                 info.AssertOk();
-                
+
 
                 return RedirectToAction("Index", "Home");
             }
-            catch
+            catch (Exception ex)
             {
+                ViewBag.Error = ex.ToString();
                 return View();
             }
         }
 
-        private TrialModel GetTrialModel(FormCollection collection)
+        private TrialModel GetTrialModel(TrialViewModel trialViewModel)
         {
             //Populate from collection
             //a. Generate Json without trial-key
+            string jsonTrialModel = JsonConvert.SerializeObject(trialViewModel);
             //b. Generate Hex from json as source
-            return new TrialModel() { 
-                //Remove Hardcoding
-                TrialKey = "T1", 
-                TrialData = "7B0A0922547269616C44617465223A202230312F30312F32303136222C0A092252657365617263684E616D65223A20225231222C0D0A0922526573656172636865724E616D65223A202243686972616E6A6962222C0D0A092252657365617263684F6E223A2022484956222C0A09224F62736572766174696F6E223A2022476F6F642E220A7D" };
+            string hexString = Utility.HexadecimalEncoding.ToHexString(jsonTrialModel);
+
+            return new TrialModel()
+            {
+                TrialKey = trialViewModel.TrialKey + "-" + Guid.NewGuid(),
+                TrialData = hexString
+            };
         }
 
         //
