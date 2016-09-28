@@ -10,7 +10,7 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>TrialViewModel</h4>
         <hr />
@@ -49,10 +49,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ObservationDetails, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ResearchOn, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ObservationDetails)
-                @Html.ValidationMessageFor(model => model.ObservationDetails)
+                @Html.EditorFor(model => model.ResearchOn)
+                @Html.ValidationMessageFor(model => model.ResearchOn)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Observation, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Observation)
+                @Html.ValidationMessageFor(model => model.Observation)
             </div>
         </div>
 
