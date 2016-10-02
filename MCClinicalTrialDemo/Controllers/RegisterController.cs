@@ -4,13 +4,16 @@ using MultiChainLib.Helper;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MCClinicalTrialDemo.Controllers
 {
-    public class RegisterController : Controller
+    public class RegisterController : BaseController
     {
         //
         // GET: /Register/
@@ -41,18 +44,23 @@ namespace MCClinicalTrialDemo.Controllers
             TrialModel trialModel = new TrialModel();
             try
             {
-                MultiChainClient mcClient = new MultiChainClient("54.234.132.18", 2766, false, "multichainrpc", "testmultichain", "TrialRepository");
-                //MultiChainClient mcClient = new MultiChainClient("52.207.254.96", 2766, false, "multichainrpc", "testmultichain", "TrialRepository");
+                string uploadDirectory = "~/files/";
+                if (!Directory.Exists(Server.MapPath(uploadDirectory)))
+                {
+                    Directory.CreateDirectory(Server.MapPath(uploadDirectory));
+                }
 
+                string fileRelativePath = uploadDirectory + trialViewModel.TrialName + "_" + Path.GetFileName(trialViewModel.StudyFacts.FileName);
+                string path = Path.Combine(Server.MapPath(fileRelativePath));
+                trialViewModel.DocumentUrl = fileRelativePath;
+                trialViewModel.DocumentHash = Utility.GetHash(trialViewModel.StudyFacts.InputStream);
+                trialViewModel.StudyFacts.SaveAs(path);
+                trialViewModel.StudyFacts = null;
 
                 //populate trial-model by trial-view-model
                 trialModel = GetTrialModel(trialViewModel);
-
-                //Keep following line commented till the time GetTrialModel implemented.
-                //var info = mcClient.ListStreamItems("TrialStream");
-                var info = mcClient.PublishStream("TrialStream", trialModel.TrialKey, trialModel.TrialData);
+                var info = GetMultiChainClient().PublishStream(GetTrialStream(), trialModel.TrialName, trialModel.TrialData);
                 info.AssertOk();
-
 
                 return RedirectToAction("Index", "Home");
             }
@@ -73,7 +81,7 @@ namespace MCClinicalTrialDemo.Controllers
 
             return new TrialModel()
             {
-                TrialKey = trialViewModel.TrialKey + "-" + Guid.NewGuid(),
+                TrialName = trialViewModel.TrialName, // + "-" + Guid.NewGuid(),
                 TrialData = hexString
             };
         }

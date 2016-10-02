@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -8,28 +8,49 @@ namespace MCClinicalTrialDemo.Models
 {
     public class TrialViewModel
     {
-        [Required]
-        [Display(Name = "Trial Key")]
-        public string TrialKey { get; set; }
+        public string TxId { get; set; }
 
         [Required]
-        [Display(Name = "Trial Date")]
-        public DateTime TrialDate { get; set; }
+        [Display(Name = "Trial Name")]
+        public string TrialName { get; set; }
 
         [Required]
-        [Display(Name = "Research Name")]
-        public string ResearchName { get; set; }
+        [Display(Name = "Trial Description")]
+        public string TrialDescription { get; set; }
 
         [Required]
-        [Display(Name = "Researcher Name")]
-        public string ResearcherName { get; set; }
-
-        [Display(Name = "Research On")]
-        public string ResearchOn { get; set; }
+        [Display(Name = "Date Of Commencement")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d MMM yyyy}")]
+        public DateTime DateOfCommencement { get; set; }
 
         [Required]
-        [Display(Name = "Observation Details")]
-        public string Observation { get; set; }
+        [Display(Name = "Location")]
+        public string Location { get; set; }
+
+        [Required]
+        [Display(Name = "Protocol Name")]
+        public string ProtocolName { get; set; }
+
+        [Display(Name = "Comments")]
+        public string Comments { get; set; }
+
+        [Required]
+        [Display(Name = "Study Number")]
+        public string StudyNumber { get; set; }
+
+        /// <summary>
+        /// Using this property only to hold and save the uploaded file
+        /// </summary>
+        [Required]
+        [Display(Name = "Study Facts")]
+        [JsonIgnore]
+        public HttpPostedFileBase StudyFacts { get; set; }
+
+        [Display(Name = "Document Url")]
+        public string DocumentUrl { get; set; }
+
+        [Display(Name = "Document Hash")]
+        public string DocumentHash { get; set; }
 
     }
 }

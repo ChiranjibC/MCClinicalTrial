@@ -23,9 +23,18 @@ namespace MCClinicalTrialDemo
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/site").Include(
+                      "~/Scripts/site.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            //Create bundel for jQueryUI   
+            //js   
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include("~/Scripts/jquery-ui-{version}.js"));
+            //css   
+            bundles.Add(new StyleBundle("~/Content/cssjqryUi").Include("~/Content/jquery-ui.css"));
+
         }
     }
 }

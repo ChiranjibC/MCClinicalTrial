@@ -4,11 +4,11 @@
     ViewBag.Title = "Register Trial";
 }
 
-<h2>RegisterTrial</h2>
+<h2>Register Trial</h2>
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Register", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
@@ -17,50 +17,68 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TrialKey, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TrialName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TrialKey)
-                @Html.ValidationMessageFor(model => model.TrialKey)
+                @Html.TextBoxFor(model => model.TrialName, new { @class = "form-control" } )
+                @Html.ValidationMessageFor(model => model.TrialName)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TrialDate, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TrialDescription, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TrialDate)
-                @Html.ValidationMessageFor(model => model.TrialDate)
+                @Html.TextBoxFor(model => model.TrialDescription, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TrialDescription)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ResearchName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DateOfCommencement, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ResearchName)
-                @Html.ValidationMessageFor(model => model.ResearchName)
+                @Html.EditorFor(model => model.DateOfCommencement, new { htmlAttributes = new { @class = "form-control", placeholder = "Date Of Commencement", @readonly = "true" } })
+                
+                @*@Html.TextBoxFor(model => model.DateOfCommencement, "{0:d MMM yyyy}", new { @class = "form-control" })*@
+                @Html.ValidationMessageFor(model => model.DateOfCommencement)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ResearcherName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ProtocolName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ResearcherName)
-                @Html.ValidationMessageFor(model => model.ResearcherName)
+                @Html.TextBoxFor(model => model.ProtocolName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProtocolName)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ResearchOn, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StudyNumber, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ResearchOn)
-                @Html.ValidationMessageFor(model => model.ResearchOn)
+                @Html.TextBoxFor(model => model.StudyNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StudyNumber)
             </div>
         </div>
         
         <div class="form-group">
-            @Html.LabelFor(model => model.Observation, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Location, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Observation)
-                @Html.ValidationMessageFor(model => model.Observation)
+                @Html.TextBoxFor(model => model.Location, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Location)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comments, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Comments, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Comments)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudyFacts, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.StudyFacts, new { type = "file" })
+                @Html.ValidationMessageFor(model => model.StudyFacts)
             </div>
         </div>
 
@@ -71,11 +89,34 @@
         </div>
     </div>
 }
-
+        
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
+        
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('input[type=datetime]').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+0",
+                showOn: "button"
+            }).css("display", "inline-block")
+            .next("button").button({
+                icons: { primary: "ui-icon-calendar"},
+                label: "...",
+                text: false
+            });
+        });
+    </script>
+
 }

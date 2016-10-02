@@ -1,58 +1,96 @@
 ﻿@model IEnumerable<MCClinicalTrialDemo.Models.TrialViewModel>
-
 @{
     ViewBag.Title = "Search Clinical Trials";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Search / List Clinical Trails </h2>
+<h2>Search / List Trials </h2>
 <!--
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
     -->
-<p>
-    @Html.Label("Trial Key")    
-    @Html.TextBox("Trailkey")        
-    <input type="button" class="btn btn-default" value="Search" />
-</p>
-<table class="table">
-    <tr>        
-        <th>
-            @Html.DisplayNameFor(model => model.TrialDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ResearchName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ResearcherName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ResearchOn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Observation)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>            
-            <td>
-                @Html.DisplayFor(modelItem => item.TrialDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResearchName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResearcherName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResearchOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Observation)
-            </td>           
+@using (Html.BeginForm("Search", "Search", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <p>
+        <table>
+            <tr>
+                <td>
+                    @Html.Label("Trial Name")
+
+                </td>
+                <td>
+                    <input type="text" id="SearchText" class="form-control" name="SearchText" style="width: 180px" />
+                </td>
+                <td>
+                    <input type="submit" class="btn btn-default" value="Search" />
+                </td>
+            </tr>
+        </table>
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrialName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrialDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfCommencement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProtocolName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyFacts)
+            </th>
         </tr>
-    }
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrialName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrialDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfCommencement)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProtocolName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudyNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.DocumentUrl))
+                    {
+                    <button name="btnDownload" id="btnDownload" class="btn-default">
+                        @Html.ActionLink("Download", "Download", "Search", new { selectedTrialKey = item.TrialName, selectedTxId = item.TxId }, null)
+                    </button>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}

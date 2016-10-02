@@ -232,18 +232,18 @@ namespace MultiChainLib
             return this.ExecuteAsync<List<StreamResponse>>("liststreamitems", 0, streamName);
         }
 
-        public JsonRpcResponse<string> ListStreamKeys(string streamName)
+        public JsonRpcResponse<List<KeyStream>> ListStreamKeys(string streamName)
         {
-            return this.Execute<string>("liststreamkeys", 0, streamName);
+            return this.Execute<List<KeyStream>>("liststreamkeys", 0, streamName);
         }
         public Task<JsonRpcResponse<string>> ListStreamKeysAsync(string streamName)
         {
             return this.ExecuteAsync<string>("liststreamkeys", 0, streamName);
         }
 
-        public JsonRpcResponse<string> ListStreamKeyItems(string streamName, string key)
+        public JsonRpcResponse<List<StreamResponse>> ListStreamKeyItems(string streamName, string key)
         {
-            return this.Execute<string>("liststreamkeyitems", 0, streamName, key);
+            return this.Execute<List<StreamResponse>>("liststreamkeyitems", 0, streamName, key);
         }
         public Task<JsonRpcResponse<string>> PublishStreamAsync(string streamName, string key)
         {
@@ -332,6 +332,10 @@ namespace MultiChainLib
             return builder.ToString();
         }
 
+        public JsonRpcResponse<string> GetRawTransaction(string txId)
+        {
+            return this.Execute<string>("getrawtransaction", 0, txId, 0);
+        }
         public Task<JsonRpcResponse<string>> GetRawTransactionAsync(string txId)
         {
             return this.ExecuteAsync<string>("getrawtransaction", 0, txId, 0);

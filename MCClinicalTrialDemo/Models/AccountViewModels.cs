@@ -59,5 +59,14 @@ namespace MCClinicalTrialDemo.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "User Role")]
+        public UserRole Role { get; set; }
+    }
+
+    public enum UserRole
+    {
+        Publisher,
+        Researcher
     }
 }

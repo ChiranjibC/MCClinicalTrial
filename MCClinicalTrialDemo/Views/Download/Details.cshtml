@@ -1,0 +1,60 @@
+﻿@using MultiChainLib;
+@using MultiChainLib.Model;
+@using MCClinicalTrialDemo.Models;
+@model List<DownloadViewModel>
+
+@{
+    ViewBag.Title = "Download Results";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.LabelFor(model => model.FirstOrDefault().TrialName)
+        </th>
+        <th>
+            @Html.LabelFor(model => model.FirstOrDefault().Description)
+        </th>
+        <th>
+            @Html.LabelFor(model => model.FirstOrDefault().StudyNumber)
+        </th>
+        <th>
+            @Html.LabelFor(model => model.FirstOrDefault().ProtocolName)
+        </th>
+        <th>
+            @Html.LabelFor(model => model.FirstOrDefault().DownloadedBy)
+        </th>
+        <th>
+            @Html.LabelFor(model => model.FirstOrDefault().DownloadedOn)
+        </th>
+        <th>
+            @Html.LabelFor(model => model.FirstOrDefault().Location)
+        </th>
+    </tr>
+    @foreach (var downloadVM in Model.ToList())
+    {
+        <tr>
+            <td>
+                @downloadVM.TrialName
+            </td>
+            <td>
+                @downloadVM.Description
+            </td>
+            <td>
+                @downloadVM.StudyNumber
+            </td>
+            <td>
+                @downloadVM.ProtocolName
+            </td>
+            <td>
+                @downloadVM.DownloadedBy
+            </td>
+            <td>
+                @downloadVM.DownloadedOn
+            </td>
+            <td>
+                @downloadVM.Location
+            </td>
+        </tr>
+    }
+</table>

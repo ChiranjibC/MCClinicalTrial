@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,6 +64,7 @@
     <Compile Include="Model\GetInfoResponse.cs" />
     <Compile Include="Model\GetServerInfoResponse.cs" />
     <Compile Include="Model\GetTransactionResponse.cs" />
+    <Compile Include="Model\KeyStream.cs" />
     <Compile Include="Model\ListPermissionsResponse.cs" />
     <Compile Include="Model\ListSinceLastBlockResponse.cs" />
     <Compile Include="Model\MempoolInfoResponse.cs" />

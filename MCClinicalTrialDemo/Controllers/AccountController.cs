@@ -9,11 +9,12 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using MCClinicalTrialDemo.Models;
+using System.Web.Security;
 
 namespace MCClinicalTrialDemo.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
@@ -45,10 +46,10 @@ namespace MCClinicalTrialDemo.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
+                if (base.AllowedUsers.ContainsKey(model.UserName))
                 {
-                    await SignInAsync(user, model.RememberMe);
+                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    base.CurrentUserRole = base.AllowedUsers[model.UserName];
                     return RedirectToLocal(returnUrl);
                 }
                 else
@@ -289,7 +290,10 @@ namespace MCClinicalTrialDemo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            Session.Abandon();
+            Session.Clear();
             AuthenticationManager.SignOut();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 

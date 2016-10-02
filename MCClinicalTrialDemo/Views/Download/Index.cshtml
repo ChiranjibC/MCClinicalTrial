@@ -1,0 +1,24 @@
+﻿@using MultiChainLib;
+@using MultiChainLib.Model;
+@using Newtonsoft.Json;
+@model JsonRpcResponse<List<KeyStream>>
+
+@{
+    ViewBag.Title = "Download Results";
+}
+
+<h2>Download Results</h2>
+<div>
+    <h4>Researcher:</h4>    
+
+    @Html.DropDownList(
+    "ResearcherName",
+    new SelectList(
+        Model.Result.Select(x => new { Value = x.Key, Text = x.Key + " (" + x.Items + ")" }),
+        "Value",
+        "Text"),
+    "--Select--")
+</div>
+<div id="downloadHist" class="downloadHist">
+
+</div>

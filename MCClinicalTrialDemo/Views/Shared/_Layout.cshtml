@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using MCClinicalTrialDemo;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,9 +23,18 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (Html.IsPublisher())
+                    {
                     <li>@Html.ActionLink("Register Trial", "Create", "Register")</li>
-                    <li>@Html.ActionLink("Search / List Trial", "Get", "Search")</li>
-                    <li>@Html.ActionLink("Download History", "Get", "Search")</li>
+                    }
+                    @if (!Html.IsPublisher())
+                    {
+                    <li>@Html.ActionLink("Search / List Trial", "Index", "Search")</li>
+                    }
+                    @if (Html.IsPublisher())
+                    {
+                    <li>@Html.ActionLink("Download History", "Index", "Download")</li>
+                    }
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
@@ -42,6 +52,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/site")
     @RenderSection("scripts", required: false)
 </body>
 </html>
