@@ -9,15 +9,15 @@
 
 <h2>Download Results</h2>
 <div>
-    <h4>Researcher:</h4>    
+    <h4>Trial Name</h4>    
 
     @Html.DropDownList(
-    "ResearcherName",
+    "TrialName",
     new SelectList(
         Model.Result.Select(x => new { Value = x.Key, Text = x.Key + " (" + x.Items + ")" }),
         "Value",
         "Text"),
-    "--Select--")
+    "All")
 </div>
 <div id="downloadHist" class="downloadHist">
 

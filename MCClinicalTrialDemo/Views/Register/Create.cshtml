@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DateOfCommencement, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DateOfCommencement, new { htmlAttributes = new { @class = "form-control", placeholder = "Date Of Commencement", @readonly = "true" } })
+                @Html.TextBoxFor(model => model.DateOfCommencement, new { @class = "form-control", placeholder = "Date Of Commencement", @readonly = "true", @autocomplete=false} )
                 
                 @*@Html.TextBoxFor(model => model.DateOfCommencement, "{0:d MMM yyyy}", new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.DateOfCommencement)
@@ -104,8 +104,8 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('input[type=datetime]').datepicker({
-                dateFormat: "dd/M/yy",
+            $('#DateOfCommencement').datepicker({
+                dateFormat: "mm/dd/yy",
                 changeMonth: true,
                 changeYear: true,
                 yearRange: "-60:+0",
@@ -116,6 +116,7 @@
                 label: "...",
                 text: false
             });
+            //$("#DateOfCommencement").datepicker();
         });
     </script>
 

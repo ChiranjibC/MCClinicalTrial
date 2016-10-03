@@ -42,7 +42,7 @@ namespace MCClinicalTrialDemo.Models
         /// Using this property only to hold and save the uploaded file
         /// </summary>
         [Required]
-        [Display(Name = "Study Facts")]
+        [Display(Name = "Study Data")]
         [JsonIgnore]
         public HttpPostedFileBase StudyFacts { get; set; }
 

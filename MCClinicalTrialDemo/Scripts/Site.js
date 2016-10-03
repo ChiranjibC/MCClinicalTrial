@@ -1,8 +1,9 @@
 ﻿var clinic = {
 	getPublisherDetails: function () {
 		$.ajax({
-		    url: "/download/details?researcherName=" + $("#ResearcherName").val(),
-			type: "GET",
+		    url: "/download/details?trialName=" + $("#TrialName").val(),
+		    type: "GET",
+		    cache: false,
 			beforeSend: function (data)
 			{
 				$(".downloadHist").html("Loading....");
@@ -17,8 +18,16 @@
 	}
 }
 
+
+function download(selectedTrialKey, selectedTxId) {
+    window.location.href = '/Search/Download?selectedTrialKey=' + selectedTrialKey + '&selectedTxId=' + selectedTxId;
+    return false;
+}
+
 $(document).ready(function () {
-    $("#ResearcherName").on("change", function () {
+    $("#TrialName").on("change", function () {
 		clinic.getPublisherDetails();
-	});
+    });
+    clinic.getPublisherDetails();
+
 });

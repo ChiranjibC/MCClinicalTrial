@@ -23,7 +23,7 @@ namespace MCClinicalTrialDemo.Controllers
             }
             else
             {
-                if (TempData["FilteredData"] != null)
+                if (TempData["FilteredData"] != null && TempData["FilteredData"] != "")
                 {
                     list = (ICollection<TrialViewModel>)TempData["FilteredData"];
                 }

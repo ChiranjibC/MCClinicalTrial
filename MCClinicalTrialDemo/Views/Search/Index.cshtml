@@ -83,13 +83,20 @@
                     @Html.DisplayFor(modelItem => item.Comments)
                 </td>
                 <td>
-                    @if (!string.IsNullOrEmpty(item.DocumentUrl))
+                                                            @if (!string.IsNullOrEmpty(item.DocumentUrl))
                     {
-                    <button name="btnDownload" id="btnDownload" class="btn-default">
-                        @Html.ActionLink("Download", "Download", "Search", new { selectedTrialKey = item.TrialName, selectedTxId = item.TxId }, null)
-                    </button>
+                        @*<a href="#" onclick="window.location.href = '/Search/Download?selectedTrialKey=@item.TrialName&selectedTxId=@item.TxId'">*@
+                            <button name="btnDownload"
+                                    id="btnDownload"
+                                    class="btn-default"
+                                    onclick="return download('@item.TrialName', '@item.TxId');">
+                                Download
+                                @*@Html.ActionLink("Download", "Download", "Search", new { selectedTrialKey = item.TrialName, selectedTxId = item.TxId }, null)*@
+                            </button>
+                        @*</a>*@
+
                     }
-                </td>
+</td>
             </tr>
         }
     </table>

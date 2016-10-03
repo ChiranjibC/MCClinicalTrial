@@ -27,9 +27,9 @@
         <th>
             @Html.LabelFor(model => model.FirstOrDefault().DownloadedOn)
         </th>
-        <th>
+        @*<th>
             @Html.LabelFor(model => model.FirstOrDefault().Location)
-        </th>
+        </th>*@
     </tr>
     @foreach (var downloadVM in Model.ToList())
     {
@@ -52,9 +52,9 @@
             <td>
                 @downloadVM.DownloadedOn
             </td>
-            <td>
+            @*<td>
                 @downloadVM.Location
-            </td>
+            </td>*@
         </tr>
     }
 </table>
