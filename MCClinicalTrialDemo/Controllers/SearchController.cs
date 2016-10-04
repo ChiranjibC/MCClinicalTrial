@@ -144,7 +144,7 @@ namespace MCClinicalTrialDemo.Controllers
             }
             if (serverFileHash != trialViewModel.DocumentHash)
             {
-                ViewBag.Error = "File seems to have been corrupted or modified.";
+                ViewBag.Error = string.Format("Blockchain detected Hash ({0}) mismatch. <br/>File seems to be modified. <br/>Download Terminated!<br/><br/>{1}", trialViewModel.DocumentHash, trialList.RawJson);
                 return View("Error");
             }
 

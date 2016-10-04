@@ -1,10 +1,10 @@
 ﻿@model MCClinicalTrialDemo.Models.TrialViewModel
 
 @{
-    ViewBag.Title = "Register Trial";
+    ViewBag.Title = "Register Trial for Publishing Study Data";
 }
 
-<h2>Register Trial</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("Create", "Register", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>TrialViewModel</h4>
+        @*<h4>TrialViewModel</h4>*@
         <hr />
         @Html.ValidationSummary(true)
 

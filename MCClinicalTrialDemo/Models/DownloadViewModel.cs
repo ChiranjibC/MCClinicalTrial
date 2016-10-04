@@ -29,7 +29,7 @@ namespace MCClinicalTrialDemo.Models
         public string DownloadedBy { get; set; }
 
         [Required]
-        [Display(Name = "Downloaded ON")]
+        [Display(Name = "Downloaded On")]
         public DateTime DownloadedOn { get; set; }
 
         [Required]

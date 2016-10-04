@@ -4,9 +4,11 @@
     ViewBag.Title = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<h3 class="text-warning">Error!!!</h3>
+<h3 class="text-warning">An error occurred while processing your request</h3>
 <div>
-    @ViewBag.Error
+    <h3 class="text-danger">
+        <pre class="text-danger">@Html.Raw(@ViewBag.Error)</pre>
+    </h3>
 </div>
 
